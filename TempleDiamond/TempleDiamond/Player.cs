@@ -20,7 +20,10 @@ namespace TempleDiamond
             if (newRoom != null)
             {
                 CurrentRoom = newRoom;
-                Console.WriteLine(CurrentRoom.GetDescription(this));
+                Console.WriteLine("-------------------------------------------");
+                Console.WriteLine(CurrentRoom.Description);
+                Console.WriteLine("-------------------------------------------");
+                Console.WriteLine("Utgångar: " + string.Join(", ", CurrentRoom.Exits.Keys));
             }
             else
             {
