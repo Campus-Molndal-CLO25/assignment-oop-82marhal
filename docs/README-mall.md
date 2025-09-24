@@ -1,4 +1,4 @@
-# [Temple Diamond] - [Martina Halldin]
+# Temple Diamond - Martina Halldin
 
 **Valt alternativ:** [Textäventyr]
 
@@ -12,7 +12,7 @@ Genom att förflytta sig genom templets alla rum och använda sig av de saker ma
 _Lägg till minst en skärmbild som visar ditt program i aktion. Detta gör ditt projekt mer intressant och hjälper andra att förstå vad det gör._
 
 ![Skärmbild av programmet](screenshot.png)
-_Kort beskrivning av vad som visas i bilden_
+På bilden ser du inledningsscenen i spelet. 
 
 ### Så här lägger du till screenshots:
 
@@ -41,7 +41,7 @@ cd assignment-oop-[82marhal]
 
 #### Visual Studio
 
-1. Öppna `[Projektnamn].sln` eller projektmappen
+1. Öppna `TempleDiamond.sln` eller projektmappen
 2. Tryck `F5` eller klicka på "Start" (grön triangel)
 
 #### JetBrains Rider
@@ -63,9 +63,11 @@ dotnet run
 
 ## Hur man använder programmet
 
-- För att gå mellan rum: Skriv "gå norr/söder/väster/öster"
-- FÖr att använda något från inventariet: Skriv "använd _ex_ ask"
+- För att gå mellan rum: Skriv "gå [norr]/[söder]/[väster]/[öster]"
+- FÖr att använda något från inventariet: Skriv "använd [item]"
 - FÖr att se vad som finns i rummet: Skriv "titta"
+- För att kombinera två items: Skriv "lägg [item1] i [item2]"
+- För att fånga något: Skriv "fånga [item]
 
 
 ## Funktioner
@@ -87,7 +89,13 @@ _Lista de huvudsakliga funktionerna ditt program har._
 ```
 projektmapp/
 ├── Program.cs         # Huvudprogram
-├── [KlassNamn].cs     # Dina klasser
+├── Item.cs            # Dina klasser
+├── ItemFactory.cs
+├── MainGame.cs
+├── Player.cs
+├── Program.cs
+├── Room.cs
+├── Spider.cs
 ├── README.md          # Denna fil
 ├── reflection.md      # Reflektion över projektet
 └── [eventuella datafiler]
@@ -129,7 +137,7 @@ När du är klar och nöjd med ditt projekt, rekommenderas du att "forka" (kopie
 
 ## Länkar
 
-- **GitHub Repository:** https://github.com/orgs/Campus-Molndal-CLO25/repositories/assignment-oop-[82marhal]
+- **GitHub Repository:** https://github.com/orgs/Campus-Molndal-CLO25/repositories/assignment-oop-82marhal
 - **Din privata fork:** (uppdatera denna länk efter att du forkat)
 
 ---

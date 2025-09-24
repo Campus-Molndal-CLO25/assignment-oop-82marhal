@@ -197,6 +197,12 @@ namespace TempleDiamond
                 return;
             }
 
+            if (item.Name == "Larv")
+            {
+                Console.WriteLine("Larven är för snabb för att bara ta med händerna. Kanske du kan locka in den i något?");
+                return;
+            }
+
             player.TakeItem(item);
 
             if (item.Name == "Diamant")
@@ -498,6 +504,89 @@ namespace TempleDiamond
 
         private void UseItem(string itemName)
         {
+            var item = player.Inventory
+                .FirstOrDefault(i => i.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase));
+
+            if (item == null)
+            {
+                Console.WriteLine("Du har inte det föremålet.");
+                return;
+            }
+
+            switch (item.Name)
+            {
+                case "Medaljong":
+                    HandleUseMedallion(item);
+                    break;
+
+                case "Ask":
+                    HandleUseBox(item);
+                    break;
+
+                case "Fackla":
+                    HandleUseTorch(item);
+                    break;
+
+                default:
+                    Console.WriteLine($"Du använder {item.Name}.");
+                    break;
+            }
+        }
+        private void HandleUseMedallion(Item medallion)
+        {
+            if (player.CurrentRoom.Name == "Ingången")
+            {
+                MedallionUsed = true;
+                Console.WriteLine("Du använder medaljongen i urgröpningen. Den stora stenporten skakar till och öppnas!");
+            }
+            else
+            {
+                Console.WriteLine("Medaljongen verkar inte passa här.");
+            }
+        }
+
+        private void HandleUseBox(Item box)
+        {
+            if (player.CurrentRoom.Name == "Spindelrummet" && spiderBoss.IsAlive)
+            {
+                if (box.Contains("Larv"))
+                {
+                    spiderBoss.HasEatenCaterpillar = true;
+                    Console.WriteLine("Du matar spindeln med larven. Spindeln blir glad och låter dig passera.");
+
+                    var holeRoom = allRooms["Hålet"];
+                    if (!holeRoom.ItemsInRoom.Any(i => i.Name == "Spindelnät"))
+                        holeRoom.ItemsInRoom.Add(ItemFactory.CreateItem("spiderweb"));
+
+                    player.Inventory.Remove(box);
+                }
+                else
+                {
+                    Console.WriteLine("Asken är tom. Spindeln ser inte imponerad ut...");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Du skakar lite på asken, men inget händer.");
+            }
+        }
+
+        private void HandleUseTorch(Item torch)
+        {
+            if (player.CurrentRoom.Name == "Spindelrummet" && spiderBoss.IsAlive)
+            {
+                spiderBoss.IsAlive = false;
+                Console.WriteLine("Du bränner spindeln med facklan. Spindeln dör.");
+            }
+            else
+            {
+                Console.WriteLine("Facklan sprakar till lite, men inget särskilt händer.");
+            }
+        }
+
+
+        /*private void UseItem(string itemName)
+        {
             var item = player.Inventory.FirstOrDefault(i => i.Name.ToLower() == itemName.ToLower());
             if (item == null) { Console.WriteLine("Du har inte det föremålet."); return; }
 
@@ -527,6 +616,6 @@ namespace TempleDiamond
             }
 
             Console.WriteLine($"Du använder {item.Name}.");
-        }
+        }*/
     }
 }
