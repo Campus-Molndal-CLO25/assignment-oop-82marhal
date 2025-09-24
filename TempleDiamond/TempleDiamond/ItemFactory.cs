@@ -8,7 +8,7 @@
             switch (itemName.ToLower())
             {
                 case "smallbox":
-                    return new Item("Ask", "Det är en ask. Det är något inuti.");
+                    return new Item("Ask", "Det är en liten ask...med plats för småsaker.");
                 case "torch":
                     return new Item("Fackla", "Det står en fackla vid väggen.");
                 case "caterpillar":
@@ -16,7 +16,7 @@
                 case "ladder":
                     return new Item("Stege", "En lång stege står lutad mot väggen.");
                 case "diamond":
-                    return new Item("Diamant", "Där är den! Diamanten från farfars berättelser!");
+                    return new Item("Diamant", "Diamanten från farfars berättelser.");
                 case "spiderweb":
                     return new Item("Spindelnät", "Spindeln är borta men den har gjort ett finfint nät över hålet som tack för maten.");
                 case "leaf":

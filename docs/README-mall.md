@@ -1,10 +1,11 @@
-# [Projektnamn] - [Ditt namn]
+# [Temple Diamond] - [Martina Halldin]
 
-**Valt alternativ:** [Havsforskarna / Textäventyr / Lagerhanteringssystem]
+**Valt alternativ:** [Textäventyr]
 
 ## Projektbeskrivning
 
-_Skriv en kort beskrivning (2-3 meningar) om vilket alternativ du har valt och vad ditt program gör._
+Jag har valt att skapa ett textäventyr. Vi får följa en äventyrare som letar efter diamanten från en av farfars berättelser. 
+Genom att förflytta sig genom templets alla rum och använda sig av de saker man hittar under spelets gång tar äventyraren sig förhoppningsvis förbi den stora spindeln som vaktar diamanten. 
 
 ## Screenshot
 
@@ -32,11 +33,9 @@ _Tips: Du kan lägga till flera bilder för att visa olika delar av programmet, 
 ### Klona projektet
 
 ```bash
-git clone https://github.com/orgs/Campus-Molndal-CLO25/repositories/assignment-oop-[ditt-username]
-cd assignment-oop-[ditt-username]
+git clone https://github.com/orgs/Campus-Molndal-CLO25/repositories/assignment-oop-[82marhal]]
+cd assignment-oop-[82marhal]
 ```
-
-_Exempel: Om din GAFE-mail är marmed02@gafe.molndal.se, blir ditt repo assignment-oop-marmed02_
 
 ### Starta programmet
 
@@ -62,17 +61,12 @@ _Exempel: Om din GAFE-mail är marmed02@gafe.molndal.se, blir ditt repo assignme
 dotnet run
 ```
 
-_Om ditt projekt använder specifika filer (t.ex. CSV-filer för lagerhantering), beskriv var de ska placeras._
-
 ## Hur man använder programmet
 
-_Beskriv kortfattat hur användaren interagerar med ditt program. Ge konkreta exempel på kommandon eller val._
+- För att gå mellan rum: Skriv "gå norr/söder/väster/öster"
+- FÖr att använda något från inventariet: Skriv "använd _ex_ ask"
+- FÖr att se vad som finns i rummet: Skriv "titta"
 
-**Exempel:**
-
-- För att skicka en sond: Skriv koordinater som "A5" eller "B7"
-- För att gå mellan rum: Skriv "gå norr" eller "syd"
-- Programmet läser automatiskt CSV-filer från projektmappen
 
 ## Funktioner
 
@@ -92,7 +86,7 @@ _Lista de huvudsakliga funktionerna ditt program har._
 
 ```
 projektmapp/
-├── Program.cs          # Huvudprogram
+├── Program.cs         # Huvudprogram
 ├── [KlassNamn].cs     # Dina klasser
 ├── README.md          # Denna fil
 ├── reflection.md      # Reflektion över projektet
@@ -135,9 +129,8 @@ När du är klar och nöjd med ditt projekt, rekommenderas du att "forka" (kopie
 
 ## Länkar
 
-- **GitHub Repository:** https://github.com/orgs/Campus-Molndal-CLO25/repositories/assignment-oop-[ditt-username]
+- **GitHub Repository:** https://github.com/orgs/Campus-Molndal-CLO25/repositories/assignment-oop-[82marhal]
 - **Din privata fork:** (uppdatera denna länk efter att du forkat)
-- **Kurshemsida:** [länk om relevant]
 
 ---
 

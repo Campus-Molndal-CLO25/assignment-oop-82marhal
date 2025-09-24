@@ -1,133 +1,106 @@
-﻿namespace TempleDiamond
+﻿using System.ComponentModel;
+
+namespace TempleDiamond
 
 {
+
     // Hanterar huvudloopen och tolkar spelarens kommandon
     public class MainGame
     {
         private Player player;
         private bool gameOver = false;
-        private Dictionary<string, Room> allRooms; // Alla rum i spelet
+
+        public Dictionary<string, Room> allRooms;
+        public SpiderBoss spiderBoss;
+        public bool MedallionUsed { get; set; } = false;
 
         public void Start()
         {
+            Program.CurrentGame = this;
             Console.WriteLine("'Farfar. Kan du inte berätta en gång till om den försvunna diamanten?'");
             Console.WriteLine("'Men den historian har jag ju berättat så många gånger nu'");
             Console.WriteLine("'Gör det igen!' Och farfar berättade igen, som han hade gjort varje gång.");
+            Console.WriteLine("-----------------------------------------------------------------------------");
             Console.WriteLine("23 år senare - Långt inne i en sedan länge bortglömt djungel:");
             Console.WriteLine("Han stod där nu. Framför porten till det gamla templet som farfar hade berättat om. Nu behövde han bara ta sig in...");
-            Console.WriteLine("I den uråldriga gamla stenporten såg han en urgröpning. Han kände i fickan efter farfars medaljong.");
+            Console.WriteLine("I den uråldriga gamla stenporten såg han en urgröpning. Han kände i fickan där han hade farfars medaljong.");
+            Console.WriteLine("-----------------------------------------------------------------------------");
+            Console.WriteLine("Vad vill du göra?");
 
             CreateWorld();
             player = new Player(allRooms["Ingången"]);
+            player.Inventory.Add(ItemFactory.CreateItem("medallion"));
 
             while (!gameOver)
             {
-                Console.Write("> ");
+                Console.Write("------------------------------------------------\n> ");
                 string? command = Console.ReadLine();
                 ProcessCommand(command);
             }
         }
 
-        private void CreateWorld()
+        private void CreateWorld() //Här byggs världen upp
         {
-            // Skapa världen
-            Room entrance = new Room(
-            "Ingången",
-            "Du står framför den stora porten till templet. I porten finns en urgröpning. Farfars medaljong ser ut att passa i den.");
+            spiderBoss = new SpiderBoss();
 
+            // --- Rooms ---
+            var entrance = new Room("Ingången", "Du står framför porten. Farfars medaljong ser ut att passa i urgröpningen.");
+            var hall = new Room("Hallen", "Du kommer in i ett rum med högt i tak.");
+            var hole = new Room("Hålet", "Du lägger stegen över hålet och klättrar över. Ett felsteg och du är död...");
+            var spiderRoom = new Room("Spindelrummet", "En gigantisk spindel blockerar din väg! Hur tusan ska du ta dig förbi den?");
+            var diamondRoom = new Room("Diamanten", "Mitt i rummet ser du diamanten på en pidestal.");
+            var ladderRoom = new Room("Stegen", "Ännu ett rum med högt i tak. En lång stege står lutad mot väggen och du ser en liten ingång längst däruppe.");
+            var dadJoke = new Room("Pappaskämt", "Rummet är helt tomt förutom en tavla. På tavlan står en text: 'Varför tippar alltid dykare bakåt när de ska i vattnet? Om de tippar framåt hamnar de i båten.'");
+            var stone = new Room("Stenen", "Mitt i rummet står en stor sten. Något blänker till vid foten av stenen. Vad kan det vara?");
+            var treeRoom = new Room("Trädet", "Ett enormt träd växer i mitten av rummet. Hur är det möjligt, det finns ju varken solljus eller vatten här. Ändå är trädet fyllt av gröna löv.");
+            var caterpillarRoom = new Room("Larven", "En fet, saftig larv kryper runt på golvet.");
 
-            Room candle = new Room(
-                "Hallen",
-                "Du kommer in i ett nästan helt mörkt rum. Längst inne i hörnet står ett ensamt stearinljus och sprider mycket lite ljus omkring sig.");
-
-            Room hole = new Room(
-                "Hålet",
-                "Ett stort hål i golvet upptar nästan hela rummet.");
-
-            Room spiderRoom = new Room(
-                "Spindelrummet",
-                "En gigantisk spindel blockerar din väg!");
-
-            Room diamondRoom = new Room(
-                "Diamanten",
-                "Mitt i rummet ser du diamanten på en pidestal. I hörnet av rummet ser du ett skelett.");
-
-            Room ladderRoom = new Room(
-                "Stegen",
-                "En lång stege står lutad mot väggen. Den når nästan upp till taket. Längst upp ser du ett hål i väggen.");
-
-            Room dadJoke = new Room(
-                "Pappaskämt",
-                "Rummet är tomt förutom en tavla på väggen. Det står: 'Vilken fågel är snabbast? Svaret är: Ööööööörn örn örn örn'");
-
-            Room sandwich = new Room(
-                "Smörgåsen",
-                "På en sten i mitten av rummet ligger ask. Undrar vad som finns däri?");
-
-            Room treeRoom = new Room(
-                "Trädet",
-                "Ett enormt träd växer i mitten av rummet. Grenarna når nästan taket.");
-
-            Room caterpillar = new Room(
-                "Larven",
-                "En fet, saftig larv kryper runt på golvet.");
-
-            // Skapa vägar mellan rummen
-            entrance.Exits["norr"] = candle;
-            candle.Exits["söder"] = entrance;
-            candle.Exits["väster"] = hole;
-            candle.Exits["öster"] = ladderRoom;
-            hole.Exits["öster"] = candle;
+            // --- Exits ---
+            entrance.Exits["norr"] = hall;
+            hall.Exits["söder"] = entrance;
+            hall.Exits["väster"] = hole;
+            hall.Exits["öster"] = ladderRoom;
+            hole.Exits["öster"] = hall;
             hole.Exits["norr"] = spiderRoom;
             spiderRoom.Exits["söder"] = hole;
             spiderRoom.Exits["norr"] = diamondRoom;
-            ladderRoom.Exits["väster"] = candle;
+            ladderRoom.Exits["väster"] = hall;
             ladderRoom.Exits["norr"] = treeRoom;
             ladderRoom.Exits["öster"] = dadJoke;
             treeRoom.Exits["söder"] = ladderRoom;
-            treeRoom.Exits["norr"] = caterpillar;
-            caterpillar.Exits["söder"] = treeRoom;
+            treeRoom.Exits["norr"] = caterpillarRoom;
+            caterpillarRoom.Exits["söder"] = treeRoom;
             dadJoke.Exits["väster"] = ladderRoom;
-            dadJoke.Exits["öster"] = sandwich;
-            sandwich.Exits["väster"] = dadJoke;
+            dadJoke.Exits["öster"] = stone;
+            stone.Exits["väster"] = dadJoke;
 
-            // Lägg till föremål i rummen
-            entrance.ItemsInRoom.Add(ItemFactory.CreateItem("medallion"));
-            candle.ItemsInRoom.Add(ItemFactory.CreateItem("torch"));
-            hole.ItemsInRoom.Add(ItemFactory.CreateItem("spiderweb"));
+            // --- Items ---
+            hall.ItemsInRoom.Add(ItemFactory.CreateItem("torch"));
             diamondRoom.ItemsInRoom.Add(ItemFactory.CreateItem("diamond"));
-            sandwich.ItemsInRoom.Add(ItemFactory.CreateItem("smallbox"));
+            stone.ItemsInRoom.Add(ItemFactory.CreateItem("smallbox"));
             treeRoom.ItemsInRoom.Add(ItemFactory.CreateItem("leaf"));
-            caterpillar.ItemsInRoom.Add(ItemFactory.CreateItem("caterpillar"));
+            caterpillarRoom.ItemsInRoom.Add(ItemFactory.CreateItem("caterpillar"));
             ladderRoom.ItemsInRoom.Add(ItemFactory.CreateItem("ladder"));
 
-            // Lägg till alla rum i ordboken
+            // --- All rooms ---
             allRooms = new Dictionary<string, Room>
             {
                 { "Ingången", entrance },
-                { "Hallen", candle },
+                { "Hallen", hall },
                 { "Hålet", hole },
                 { "Spindelrummet", spiderRoom },
                 { "Diamanten", diamondRoom },
                 { "Stegen", ladderRoom },
                 { "Pappaskämt", dadJoke },
-                { "Smörgåsen", sandwich },
+                { "Stenen", stone },
                 { "Trädet", treeRoom },
-                { "Larven", caterpillar }
+                { "Larven", caterpillarRoom }
             };
-
-
-
         }
 
         private void ProcessCommand(string? command)
         {
-
-            if (string.IsNullOrWhiteSpace(command))
-            {
-                Console.WriteLine("Ange ett kommando.");
-                return;
-            }
+            if (string.IsNullOrWhiteSpace(command)) { Console.WriteLine("Ange ett kommando."); return; }
 
             var words = command.ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
             string verb = words[0];
@@ -136,83 +109,190 @@
             switch (verb)
             {
                 case "gå":
-                    if (string.IsNullOrWhiteSpace(obj))
+                    if (string.IsNullOrWhiteSpace(obj)) { Console.WriteLine("Åt vilket håll?"); return; }
+
+                    // --- Startrumsbegränsning ---
+                    if (player.CurrentRoom.Name == "Ingången" && !MedallionUsed)
                     {
-                        Console.WriteLine("Åt vilket håll vill du gå?");
+                        Console.WriteLine("Du behöver öppna porten innan du går in. Du är inget spöke som kan gå igenom väggar vet du!");
+                        return;
+                    }
+
+                    // --- När det är mörkt i templet ---
+                    if (player.CurrentRoom.Name == "Hallen" && (obj == "väster" || obj == "öster") && !player.HasItem("Fackla"))
+                    {
+                        Console.WriteLine("Det är för mörkt att gå in där! Glöm inte att du är mörkrädd!");
                         return;
                     }
 
                     if (player.CurrentRoom.Exits.ContainsKey(obj))
                     {
                         Room nextRoom = player.CurrentRoom.Exits[obj];
-                        player.MoveToRoom(nextRoom);
 
+                        // --- Hålet-logik ---
+                        if (nextRoom.Name == "Hålet")
+                        {
+                            var ladder = player.Inventory.FirstOrDefault(i => i.Name == "Stege");
+                            var spiderweb = nextRoom.ItemsInRoom.FirstOrDefault(i => i.Name == "Spindelnät");
+
+                            if (spiderweb != null)
+                            {
+                                
+                                player.MoveToRoom(nextRoom);
+                            }
+                            else if (ladder != null)
+                            {
+                                
+                                nextRoom.ItemsInRoom.Add(ladder);
+                                player.Inventory.Remove(ladder);
+                                player.MoveToRoom(nextRoom);
+                            }
+                            else Console.WriteLine("Ett stort hål blockerar vägen. Du behöver något för att ta dig över!");
+                        }
+                        else player.MoveToRoom(nextRoom);
                     }
-                    else
-                    {
-                        Console.WriteLine("Du kan inte gå åt det hållet.");
-                    }
+                    else Console.WriteLine("Du kan inte gå åt det hållet.");
                     break;
 
                 case "titta":
-                    Console.WriteLine(player.CurrentRoom.GetDescription());
+                    Console.WriteLine(player.CurrentRoom.GetDescription(player));
                     break;
 
                 case "ta":
-                    if (string.IsNullOrWhiteSpace(obj))
-                    {
-                        Console.WriteLine("Vad vill du ta?");
-                        return;
-                    }
-
-                    var item = player.CurrentRoom.ItemsInRoom
-                        .FirstOrDefault(i => i.Name.ToLower() == obj);
-
+                    if (string.IsNullOrWhiteSpace(obj)) { Console.WriteLine("Vad vill du ta?"); return; }
+                    var item = player.CurrentRoom.ItemsInRoom.FirstOrDefault(i => i.Name.ToLower() == obj);
                     if (item != null)
                     {
                         player.TakeItem(item);
-                        player.CurrentRoom.RemoveItem(item);
-                        Console.WriteLine($"Du plockar upp {item.Name}.");
+
+                        // --- Diamant-logik ---
+                        if (item.Name == "Diamant")
+                        {
+                            var holeRoom = allRooms["Hålet"];
+                            var spiderweb = holeRoom.ItemsInRoom.FirstOrDefault(i => i.Name == "Spindelnät");
+                            if (spiderBoss.IsAlive)
+                            {
+                                Console.WriteLine("När du tar diamanten börjar väggarna att skaka. Du hör hur stegen faller ner i hålet.");
+                                Console.WriteLine("Du rusar dit och ser att spindeln har byggt ett nät åt dig så du kan klättra ut, som tack för maten.");
+                                Console.WriteLine("Grattis! Du har hittat diamanten och tagit dig ut levande. Du klarade spelet!");
+                            }
+                            else
+                            {
+                                if (spiderweb == null)
+                                {
+                                    Console.WriteLine("När du tar diamanten börjar väggarna att skaka. Du hör hur stegen faller ner i hålet.");
+                                    Console.WriteLine("Det finns ingen annan väg ut. Du kanske ska vara snällare nästa gång. Du dör en långsam och plågsam död. Spelet är slut. ");
+                                }
+                                
+                            }
+                            gameOver = true;
+                        }
                     }
-                    else
-                    {
-                        Console.WriteLine("Det finns inget sådant föremål här.");
-                    }
+                    else Console.WriteLine("Det finns inget sådant föremål här.");
                     break;
 
                 case "använd":
-                    if (string.IsNullOrWhiteSpace(obj))
-                    {
-                        Console.WriteLine("Vad vill du använda?");
-                    }
-                    else
-                    {
-                        player.UseItem(obj);
-                    }
+                    if (string.IsNullOrWhiteSpace(obj)) { Console.WriteLine("Vad vill du använda?"); return; }
+                    UseItem(obj);
                     break;
 
                 case "inventarium":
-                    if (player.Inventory.Count == 0)
+                    if (player.Inventory.Count == 0) Console.WriteLine("Ditt inventarium är tomt.");
+                    else Console.WriteLine("Inventarium: " + string.Join(", ", player.Inventory.Select(i => i.Name)));
+                    break;
+
+                case "fånga":
+                    if (obj == "larv" && player.CurrentRoom.Name == "Larven")
                     {
-                        Console.WriteLine("Ditt inventarium är tomt.");
+                        var box = player.Inventory.FirstOrDefault(i => i.Name == "Ask");
+                        if (box == null) { Console.WriteLine("Du behöver något att fånga larven i."); return; }
+                        if (!box.Contains("Löv")) { Console.WriteLine("Du tror väl inte att larven kommer gå in i en ask bara utan vidare. Kanske du kan locka med något?."); return; }
+
+                        var larv = player.CurrentRoom.ItemsInRoom.FirstOrDefault(i => i.Name == "Larv");
+                        if (larv == null) { Console.WriteLine("Larven är borta."); return; }
+
+                        box.AddItem(larv);
+                        player.CurrentRoom.RemoveItem(larv);
+                        Console.WriteLine("Du har fångat larven i asken.");
                     }
-                    else
+                    else Console.WriteLine("Du kan inte fånga det här.");
+                    break;
+
+                case "lägg":
+                    /*if (words.Length < 3)
                     {
-                        Console.WriteLine("Du har följande föremål i ditt inventarium:");
-                        Console.WriteLine(string.Join(", ", player.Inventory.Select(i => i.Name)));
+                        Console.WriteLine("Syntax: Lägg [föremål] i [behållare]");
+                        return;
                     }
+                    */
+
+                    string itemName = words[1];
+                    string containerName = words[^1];
+
+                    var itemToPlace = player.Inventory.FirstOrDefault(i => i.Name.ToLower() == itemName);
+                    var container = player.Inventory.FirstOrDefault(i => i.Name.ToLower() == containerName);
+
+                    if (itemToPlace == null)
+                    {
+                        Console.WriteLine("Du har inte det föremålet.");
+                        return;
+                    }
+
+                    if (container == null)
+                    {
+                        Console.WriteLine("Du har ingen sådan behållare.");
+                        return;
+                    }
+
+                    container.AddItem(itemToPlace);
+                    player.Inventory.Remove(itemToPlace);
+                    Console.WriteLine($"Du lägger {itemToPlace.Name} i {container.Name}");
                     break;
 
                 case "sluta":
                     gameOver = true;
-                    Console.WriteLine("Spelet avslutas. Tack för att du spelade!");
-                    return;
+                    Console.WriteLine("Spelet avslutas.");
+                    break;
 
                 default:
-                    Console.WriteLine("Okänt kommando.");
+                    Console.WriteLine("Jag förstår inte vad du vill göra.");
                     break;
             }
-            Console.WriteLine("Vad vill du göra nu?");
+
+            if (!gameOver) Console.WriteLine("Vad vill du göra nu?");
+        }
+
+        private void UseItem(string itemName)
+        {
+            var item = player.Inventory.FirstOrDefault(i => i.Name.ToLower() == itemName.ToLower());
+            if (item == null) { Console.WriteLine("Du har inte det föremålet."); return; }
+
+            if (item.Name == "Medaljong" && player.CurrentRoom.Name == "Ingången")
+            {
+                MedallionUsed = true;
+                Console.WriteLine("Du använder medaljongen i urgröpningen. Den stora stenporten skakar till och öppnas!");
+                return;
+            }
+
+            if (item.Name == "Ask" && player.CurrentRoom.Name == "Spindelrummet" && spiderBoss.IsAlive)
+            {
+                spiderBoss.HasEatenCaterpillar = true;
+                Console.WriteLine("Du matar spindeln med larven. Spindeln blir glad och låter dig passera.");
+                var holeRoom = allRooms["Hålet"];
+                if (!holeRoom.ItemsInRoom.Any(i => i.Name == "Spindelnät"))
+                    holeRoom.ItemsInRoom.Add(ItemFactory.CreateItem("spiderweb"));
+                player.Inventory.Remove(item);
+                return;
+            }
+
+            if (item.Name == "Fackla" && player.CurrentRoom.Name == "Spindelrummet" && spiderBoss.IsAlive)
+            {
+                spiderBoss.IsAlive = false;
+                Console.WriteLine("Du bränner spindeln med facklan. Spindeln dör.");
+                return;
+            }
+
+            Console.WriteLine($"Du använder {item.Name}.");
         }
     }
 }

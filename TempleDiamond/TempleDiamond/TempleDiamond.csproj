@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include="C:\Users\marti\source\repos\assignment-oop-82marhal\TempleDiamond\MainGame.cs" Link="MainGame.cs" />
+  </ItemGroup>
+
 </Project>

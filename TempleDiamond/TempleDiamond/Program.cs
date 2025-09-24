@@ -3,9 +3,11 @@
 {
     internal class Program
     {
+        public static MainGame CurrentGame { get; set; }    
+        
         static void Main(string[] args)
         {
-            Game game = new Game();
+            MainGame game = new MainGame();
             game.Start();
         }
     }

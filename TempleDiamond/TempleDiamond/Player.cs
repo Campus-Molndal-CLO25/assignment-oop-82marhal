@@ -1,4 +1,6 @@
-﻿namespace TempleDiamond
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TempleDiamond
 
 {
     public class Player
@@ -18,8 +20,7 @@
             if (newRoom != null)
             {
                 CurrentRoom = newRoom;
-                Console.WriteLine($"Du är nu i {newRoom.Name}.");
-                Console.WriteLine(CurrentRoom.Description);
+                Console.WriteLine(CurrentRoom.GetDescription(this));
             }
             else
             {
@@ -35,7 +36,7 @@
             {
                 Inventory.Add(item);
                 CurrentRoom.RemoveItem(item);
-                Console.WriteLine($"Du plockade upp {item.Name}.");
+                Console.WriteLine($"Du tog upp {item.Name}.");
             }
         }
 
@@ -44,20 +45,9 @@
             foreach (Item item in Inventory)
             {
                 if (item.Name == itemName) return true;
-
+                           
             }
             return false;
-        }
-
-        public void UseItem(string itemName)
-        {
-            var item = Inventory.FirstOrDefault(i => i.Name.ToLower() == itemName.ToLower());
-            if (item == null)
-            {
-                Console.WriteLine("Du har inte det föremålet.");
-                return;
-            }
-            Console.WriteLine($"Du använder {item.Name}.");
         }
 
     }

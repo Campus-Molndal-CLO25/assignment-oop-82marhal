@@ -19,14 +19,16 @@
             Exits = new Dictionary<string, Room>();
         }
 
-        public string GetDescription()
+        public string GetDescription(Player player)
         {
             string exitNames = string.Join(", ", Exits.Keys);
             string itemNames = ItemsInRoom.Count > 0
                 ? string.Join(", ", ItemsInRoom.Select(i => i.Name))
                 : "Det finns inga föremål här.";
 
-            return $"{Description}\nUtgångar: {exitNames}\nFöremål i rummet: {itemNames}";
+            string roomDescription = Description;           
+
+            return $"-------------------------------------------\n{roomDescription}\n-------------------------------------------\nUtgångar: {exitNames}\nFöremål i rummet: {itemNames}";
         }
 
         public void RemoveItem(Item item)

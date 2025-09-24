@@ -1,27 +1,23 @@
-# Reflektion över [Projektnamn]
-
-**VIKTIGT:** Ersätt `[Projektnamn]` i rubriken med ditt faktiska projektnamn. Ta bort alla placeholders som `[Ditt svar här...]`
-och exempel i kursiv stil när du skriver dina egna svar.
-
-_Skriv dina svar under varje rubrik._
+# Reflektion över [Temple Diamond]
 
 ## Planering
 
-Hur planerade du ditt arbete från start till mål?
+- Hur planerade du ditt arbete från start till mål?
 
-[Ditt svar här...]
+Jag började med att skriva ner en plan för hur jag ville att problemen i spelet skulle lösas. Därefter ritade jag upp en karta över hur alla rum i templet är placerade, vilka håll man kan gå i varje rum och vilka prylar som finns i varje rum. För att kunna göra en planering för hur jag skulle bygga upp min kod skrev jag ner alla steg för att vinna spelet. När grunden för spelet var planerad gjorde jag ett enkelt flödesschema för alla möjliga scenarier och skrev en enkel pseudokod utifrån mitt flödesschema. 
 
 ## Problem
 
-Vad var den svåraste delen av uppgiften och varför? Hur löste du de problem du stötte på?
+- Vad var den svåraste delen av uppgiften och varför? 
+- Hur löste du de problem du stötte på?
 
 [Ditt svar här...]
 
 ## Stolthet
 
-Vad är du mest stolt över med ditt projekt?
+- Vad är du mest stolt över med ditt projekt?
 
-[Ditt svar här...]
+Jag känner mig alltid väldigt stolt när Visual Studio inte visar en enda felkod längre. Den största stoltheten känner man ju så klart när spelet fungerar exakt så som man vill och det känns logiskt, men absolut inte är för enkelt att lösa. 
 
 ---
 
