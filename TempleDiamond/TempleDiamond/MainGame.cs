@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Reflection.Metadata;
 
 namespace TempleDiamond
 
@@ -26,7 +25,7 @@ namespace TempleDiamond
             Console.WriteLine("Han stod där nu. Framför porten till det gamla templet som farfar hade berättat om. Nu behövde han bara ta sig in...");
             Console.WriteLine("I den uråldriga gamla stenporten såg han en urgröpning. Han kände i fickan där han hade farfars medaljong.");
             Console.WriteLine("-----------------------------------------------------------------------------");
-            Console.WriteLine("Vad vill du göra?");
+            Console.WriteLine("Vad vill du göra? (är du osäker, skriv: hjälp)");
 
             CreateWorld();
             player = new Player(allRooms["Ingången"]);
@@ -112,7 +111,8 @@ namespace TempleDiamond
         { "inventarium", HandleInventory },
         { "fånga", HandleCatch },
         { "lägg", HandlePut },
-        { "sluta", HandleQuit }
+        { "sluta", HandleQuit },
+        { "hjälp", HandleHelp }
     };
         }
 
@@ -320,6 +320,16 @@ namespace TempleDiamond
             }
             gameOver = true;
         }
+
+        private void HandleHelp(string _)
+        {
+            Console.WriteLine("Tillgängliga kommandon:");
+            foreach (var cmd in commandHandlers.Keys.OrderBy(c => c))
+            {
+                Console.WriteLine($" - {cmd}");
+            }
+        }
+
 
 
         /*private void ProcessCommand(string? command)
