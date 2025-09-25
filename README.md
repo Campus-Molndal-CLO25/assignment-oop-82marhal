@@ -9,19 +9,10 @@ Genom att förflytta sig genom templets alla rum och använda sig av de föremå
 
 ## Screenshot
 
-_Lägg till minst en skärmbild som visar ditt program i aktion. Detta gör ditt projekt mer intressant och hjälper andra att förstå vad det gör._
 
 ![Skärmbild av programmet](screenshot.png)
 På bilden ser du inledningsscenen i spelet. 
 
-### Så här lägger du till screenshots:
-
-1. Ta en skärmbild när ditt program körs (använd `Print Screen` eller `Snipping Tool`)
-2. Spara bilden som `screenshot.png` i din projektmapp
-3. Committa och pusha bilden till GitHub tillsammans med din kod
-4. Bilden visas automatiskt i din README
-
-_Tips: Du kan lägga till flera bilder för att visa olika delar av programmet, t.ex. spelstart, gameplay och slutskärm._
 
 ## Hur man startar programmet
 
@@ -63,8 +54,9 @@ dotnet run
 
 ## Hur man använder programmet
 
-Man navigerar genom programmet genom korta kommandon som kan kombineras med föremål eller riktning.  
+Man navigerar genom programmet genom att ange korta textkommandon som kan kombineras med föremål (ex. fackla, stege) eller riktning (ex norr, söder).  
 Tillgängliga kommandon:
+
  - använd
  - fånga
  - gå
@@ -116,7 +108,7 @@ Tillgängliga kommandon:
 
 ### Extra funktioner (för VG)
 
-- [ ] Större värld - SPelet består av 10 unika rum.
+- [ ] Större värld - Spelet består av 10 unika rum.
   [ ] Låsta dörrar och nycklar - Det krävs nyckel för att komma in i templet och det krävs särskilda föremål för att komma in i vissa rum.
   [ ] NPC - En boss i form av en spindel som reagerar olika beroende på hur du behandlar den. 
 
@@ -126,13 +118,13 @@ Tillgängliga kommandon:
 projektmapp/
 ├── Program.cs         # Huvudprogram
 ├── Item.cs            # Klass för föremål i spelet
-├── ItemFactory.cs     # "Fabrik" som skapar föremål
+├── ItemFactory.cs     # "Fabrik"-klass som skapar föremål
 ├── MainGame.cs        # Klass som hanterar start, världens uppbyggnad, kommandon och logik
 ├── Player.cs          # Klass som håller koll på spelares rörelse samt inventarie
 ├── Room.cs            # Klass för hur rum är uppbyggda
 ├── Spider.cs          # Klass som skapar spindelbossen
 ├── README.md          # Denna fil
-├── reflection.md      # Reflektion över projektet
+├── Reflektion.md      # Reflektion över projektet
 
 ```
 
@@ -142,38 +134,11 @@ projektmapp/
 - **Framework:** .NET 8.0
 - **Utvecklingsmiljö:** [Visual Studio Code / Visual Studio]
 
-## Spara projektet för framtiden
-
-När du är klar och nöjd med ditt projekt, rekommenderas du att "forka" (kopiera) det till ditt privata GitHub-konto. Detta skapar en permanent kopia som du kan visa för framtida arbetsgivare som en del av din portfolio.
-
-### Så här forkar du projektet:
-
-1. **Gå till ditt projekt** på GitHub: https://github.com/orgs/Campus-Molndal-CLO25/repositories/assignment-oop-[ditt-username]
-
-2. **Klicka på "Fork"** (längst upp till höger på sidan)
-
-3. **Välj ditt privata konto** som destination för fork:en
-
-4. **Uppdatera beskrivningen** i din fork:
-
-   - Gå till din fork: `https://github.com/[ditt-privata-username]/assignment-oop-[ditt-username]`
-   - Klicka på kugghjulet (Settings)
-   - Lägg till en beskrivning som: "C# OOP project - Ocean research game built during studies at Campus Mölndal"
-   - Lägg till topics/tags som: `csharp`, `oop`, `console-game`, `dotnet`
-
-5. **Gör en sista uppdatering** av README.md i din fork och ändra länken under "GitHub Repository" till din nya fork
-
-### Varför är detta viktigt?
-
-- **Portfolio:** Visar dina programmeringsfärdigheter för potentiella arbetsgivare
-- **Permanent kopia:** Skolans repositories kan tas bort efter kursen
-- **Progression:** Du kan se tillbaka på ditt arbete och hur du utvecklats
-- **Referens:** Användbart att ha tillgång till din egen kod för framtida projekt
 
 ## Länkar
 
 - **GitHub Repository:** https://github.com/orgs/Campus-Molndal-CLO25/repositories/assignment-oop-82marhal
-- **Din privata fork:** (uppdatera denna länk efter att du forkat)
+
 
 ---
 
